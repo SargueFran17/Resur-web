@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Datos de tu negocio · ReSur</title>
+<meta name="description" content="Formulario para recoger los datos del negocio antes de empezar su web.">
+<meta name="robots" content="noindex">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --navy:#0d1d38; --navy-2:#152a4d; --navy-3:#20375f;
+  --grey:#eef0f3; --grey-2:#e2e6ec; --white:#fbfcfd;
+  --ink:#0e1726; --muted:#586377;
+  --on-navy:#e9edf4; --on-navy-muted:#a4b0c4;
+  --gold:#e0b03f; --gold-soft:#f3dc9f; --gold-text:#8c6710;
+  --line:#d5dbe3; --line-navy:rgba(255,255,255,.12);
+  --err:#b3261e;
+  --f-sans:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-serif:"Instrument Serif", Georgia, "Times New Roman", serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--grey);color:var(--ink);font-family:var(--f-sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.wrap{max-width:820px;margin:0 auto;padding-inline:16px}
+em.s{font-family:var(--f-serif);font-style:italic;font-weight:400}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+/* nav */
+.nav{background:var(--navy);border-bottom:1px solid var(--line-navy);color:var(--on-navy)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:baseline;font-weight:800;font-size:23px;letter-spacing:-.03em;text-decoration:none;color:#fff}
+.logo b{color:var(--gold);font-weight:800}
+.logo .sun{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-left:3px;align-self:center;transform:translateY(-6px)}
+.nav small{font-size:13px;color:var(--on-navy-muted)}
+
+/* hero */
+.hero{background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden;padding-bottom:110px}
+.hero::before{content:"";position:absolute;right:-200px;top:-240px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle, rgba(224,176,63,.22), rgba(224,176,63,0) 65%);pointer-events:none}
+.hero .wrap{position:relative;padding-top:clamp(40px,7vw,72px);display:flex;flex-direction:column;gap:16px}
+.hero h1{font-size:clamp(36px,6vw,58px);font-weight:800;line-height:1;letter-spacing:-.035em;color:#fff;text-wrap:balance}
+.hero h1 em.s{color:var(--gold);font-size:1.1em}
+.hero p.lead{font-size:clamp(16px,1.8vw,18px);color:var(--on-navy-muted);max-width:56ch}
+.hero-points{display:flex;flex-wrap:wrap;gap:8px 22px;margin:6px 0 0;padding:0;list-style:none;font-size:14px;color:var(--on-navy-muted)}
+.hero-points li{display:flex;align-items:center;gap:8px}
+.hero-points li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+/* form */
+main{margin-top:-80px;position:relative;padding-bottom:64px}
+form.card{background:var(--white);border:1px solid var(--line);border-radius:22px;box-shadow:0 24px 50px rgba(13,29,56,.10);overflow:hidden}
+fieldset{border:0;margin:0;padding:clamp(20px,4vw,34px);display:flex;flex-direction:column;gap:16px}
+fieldset + fieldset{border-top:1px solid var(--line)}
+legend{padding:0;float:left;width:100%;display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+legend .n{font-family:var(--f-serif);font-style:italic;font-size:34px;line-height:1;color:var(--gold-text)}
+legend .t{font-size:19px;font-weight:700;letter-spacing:-.01em}
+legend + *{clear:both}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f label, .lbl{font-size:13.5px;font-weight:600}
+.opt{font-weight:500;color:var(--muted)}
+.req{color:var(--gold-text)}
+.hint{font-size:13px;color:var(--muted)}
+.f input[type=text],.f input[type=email],.f input[type=tel],.f input[type=url],.f textarea{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 13px;width:100%;transition:border-color .15s, box-shadow .15s}
+.f textarea{resize:vertical;min-height:84px}
+.f input:focus,.f textarea:focus{border-color:var(--navy);outline:none;box-shadow:0 0 0 3px rgba(13,29,56,.12)}
+.f input:disabled{background:var(--grey);color:var(--muted)}
+.f.bad input,.f.bad textarea{border-color:var(--err);box-shadow:0 0 0 3px rgba(179,38,30,.10)}
+.f .msg{font-size:12.5px;color:var(--err);display:none}
+.f.bad .msg{display:block}
+
+.check{display:inline-flex;align-items:center;gap:9px;font-size:14px;cursor:pointer;user-select:none}
+.check input{width:18px;height:18px;accent-color:var(--navy);margin:0}
+
+/* colors */
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.sw{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px;display:flex;flex-direction:column;gap:8px}
+.sw span{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sw label{position:relative;display:block;height:54px;border-radius:10px;overflow:hidden;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.sw input[type=color]{position:absolute;inset:-8px;width:calc(100% + 16px);height:calc(100% + 16px);border:0;padding:0;cursor:pointer;background:none}
+.sw code{font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.colors-off .swatches{opacity:.4;pointer-events:none}
+
+/* hours */
+.hours{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+.hr{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:9px 12px}
+.hr + .hr{border-top:1px solid var(--grey-2)}
+.hr .day{font-weight:600;font-size:14.5px}
+.hr input[type=text]{border:1px solid var(--line);border-radius:8px;padding:9px 11px;width:100%;background:#fff}
+.hr input[type=text]:focus{border-color:var(--navy);outline:none;box-shadow:0 0 0 3px rgba(13,29,56,.12)}
+input::placeholder,textarea::placeholder{color:#9aa3b2}
+.hr.closed input[type=text]{background:var(--grey);color:var(--muted);text-decoration:line-through}
+.hr .check{font-size:13px;color:var(--muted)}
+.copy-hours{align-self:flex-start;border:1px solid var(--line);background:var(--white);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.copy-hours:hover{border-color:var(--navy)}
+
+/* footer of form */
+.send{background:var(--grey);border-top:1px solid var(--line);padding:clamp(20px,4vw,30px) clamp(20px,4vw,34px);display:flex;flex-direction:column;gap:16px}
+.legal{font-size:13px;color:var(--muted);line-height:1.5}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;border-radius:999px;padding:15px 26px;font-weight:700;font-size:15.5px;cursor:pointer;transition:transform .15s ease, background .2s ease;background:var(--gold);color:var(--navy);align-self:flex-start}
+.btn:hover{transform:translateY(-1px);background:#ebbd52}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.form-out{font-size:14px;color:var(--muted);min-height:1.5em}
+.form-out.err{color:var(--err)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* done */
+.done{display:none;padding:clamp(36px,7vw,64px) 24px;text-align:center;flex-direction:column;align-items:center;gap:12px}
+.done .tick{width:62px;height:62px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-size:28px;font-weight:700}
+.done h2{font-size:clamp(26px,4vw,34px);font-weight:800;letter-spacing:-.03em}
+.done h2 em.s{color:var(--gold-text);font-size:1.1em}
+.done p{color:var(--muted);max-width:44ch}
+.sent form.card .body{display:none}
+.sent .done{display:flex}
+
+footer{background:var(--navy);color:var(--on-navy-muted);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-block:24px}
+
+@media (max-width:640px){
+  .row2{grid-template-columns:1fr}
+  .swatches{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .sw{padding:8px}
+  .hr{grid-template-columns:1fr auto;gap:6px 10px}
+  .hr input[type=text]{grid-column:1 / -1;grid-row:2}
+  .btn{align-self:stretch}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <span class="logo" data-brand>Re<b>Sur</b><span class="sun" aria-hidden="true"></span></span>
+    <small>Alta de cliente</small>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Paso 1 · Datos de tu negocio</p>
+    <h1>Cuéntanos sobre <em class="s">tu negocio</em></h1>
+    <p class="lead">Con esta información empezamos a diseñar tu web. Rellenarlo te llevará unos 3 minutos y nos llega directamente a nosotros.</p>
+    <ul class="hero-points">
+      <li>3 minutos</li>
+      <li>Sin compromiso</li>
+      <li>Te respondemos en 24–48 h</li>
+    </ul>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <form class="card" id="form" novalidate>
+      <div class="body">
+        <!-- anti-spam: campo oculto que las personas no rellenan -->
+        <div class="hp" aria-hidden="true"><label>No rellenar <input type="checkbox" name="botcheck" tabindex="-1"></label></div>
+
+        <fieldset>
+          <legend><span class="n">1</span><span class="t">Datos de contacto</span></legend>
+          <div class="f">
+            <label for="nombre">Nombre y apellidos <span class="req">*</span></label>
+            <input id="nombre" name="Nombre y apellidos" type="text" autocomplete="name" required>
+            <span class="msg">Escribe tu nombre y apellidos.</span>
+          </div>
+          <div class="f">
+            <label for="email">Email <span class="req">*</span></label>
+            <input id="email" name="Email" type="email" autocomplete="email" inputmode="email" required>
+            <span class="msg">Revisa el email, parece que no es correcto.</span>
+          </div>
+          <div class="row2">
+            <div class="f">
+              <label for="tel1">Teléfono de contacto 1 <span class="req">*</span></label>
+              <input id="tel1" name="Teléfono 1" type="tel" autocomplete="tel" inputmode="tel" required>
+              <span class="msg">Necesitamos al menos un teléfono.</span>
+            </div>
+            <div class="f">
+              <label for="tel2">Teléfono de contacto 2 <span class="opt">(opcional)</span></label>
+              <input id="tel2" name="Teléfono 2" type="tel" inputmode="tel">
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="n">2</span><span class="t">Tu negocio</span></legend>
+          <div class="f">
+            <label for="comercial">Nombre comercial <span class="req">*</span></label>
+            <input id="comercial" name="Nombre comercial" type="text" autocomplete="organization" required>
+            <span class="hint">El nombre con el que te conocen tus clientes.</span>
+            <span class="msg">Escribe el nombre de tu negocio.</span>
+          </div>
+          <div class="f">
+            <label for="direccion">Dirección <span class="req">*</span></label>
+            <input id="direccion" name="Dirección" type="text" autocomplete="street-address" placeholder="Calle, número, código postal y localidad" required>
+            <span class="msg">Escribe la dirección del negocio.</span>
+          </div>
+          <div class="f" id="f-web">
+            <label for="web">Página web actual</label>
+            <input id="web" name="Página web" type="text" inputmode="url" placeholder="www.tunegocio.com">
+            <label class="check"><input type="checkbox" id="noweb"> No tengo página web</label>
+            <span class="msg">Escribe tu web o marca «No tengo página web».</span>
+          </div>
+        </fieldset>
+
+        <fieldset id="fs-colors">
+          <legend><span class="n">3</span><span class="t">Colores para el diseño</span></legend>
+          <p class="hint" style="margin-top:-6px">Toca cada cuadro para elegir un color. Si tienes logo, suelen ser sus colores.</p>
+          <div class="swatches">
+            <div class="sw"><span>Principal</span><label><input type="color" id="c1" value="#0d1d38" aria-label="Color principal"></label><code id="c1v">#0D1D38</code></div>
+            <div class="sw"><span>Secundario</span><label><input type="color" id="c2" value="#eef0f3" aria-label="Color secundario"></label><code id="c2v">#EEF0F3</code></div>
+            <div class="sw"><span>Detalles</span><label><input type="color" id="c3" value="#e0b03f" aria-label="Color de detalles"></label><code id="c3v">#E0B03F</code></div>
+          </div>
+          <label class="check"><input type="checkbox" id="nocolor"> No tengo preferencia, elegidlos vosotros</label>
+          <div class="f">
+            <label for="colornotas">Algo más sobre el estilo <span class="opt">(opcional)</span></label>
+            <textarea id="colornotas" name="Notas de estilo" placeholder="Ej.: me gustan los tonos tierra, nada de rosa, quiero algo elegante y sencillo…"></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="n">4</span><span class="t">Horario del negocio</span></legend>
+          <p class="hint" style="margin-top:-6px">Escribe las horas de cada día (p. ej. <b>9:00–14:00 / 17:00–20:30</b>) o marca «Cerrado».</p>
+          <div class="hours" id="hours"></div>
+          <button type="button" class="copy-hours" id="copyhours">Copiar el horario del lunes al resto de días laborables</button>
+          <div class="f">
+            <label for="horanotas">Notas sobre el horario <span class="opt">(opcional)</span></label>
+            <textarea id="horanotas" name="Notas de horario" placeholder="Ej.: en agosto solo mañanas, festivos cerrado…" style="min-height:64px"></textarea>
+          </div>
+        </fieldset>
+
+        <div class="send">
+          <label class="check" style="align-items:flex-start;font-size:13.5px">
+            <input type="checkbox" id="rgpd" style="margin-top:2px">
+            <span>He leído y acepto que <span data-brand-text>ReSur</span> use estos datos solo para preparar y gestionar la web de mi negocio. <span class="req">*</span></span>
+          </label>
+          <p class="legal">Tus datos no se ceden a terceros. Puedes pedir que los borremos en cualquier momento escribiéndonos al email desde el que te contactemos.</p>
+          <button class="btn" type="submit" id="submit">Enviar datos</button>
+          <p class="form-out" id="out" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="done" role="status">
+        <div class="tick">✓</div>
+        <h2>¡Recibido, <em class="s">gracias!</em></h2>
+        <p>Ya tenemos los datos de tu negocio. Te escribiremos en las próximas 24–48 horas con los siguientes pasos.</p>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="logo" style="font-size:20px">Re<b>Sur</b><span class="sun" aria-hidden="true"></span></span>
+    <span>Webs con reservas y presupuestos para negocios del sur · Málaga</span>
+  </div>
+</footer>
+
+<script>
+/* ============ CONFIGURACIÓN ============
+   1. Entra en https://web3forms.com, pon el email donde queréis recibir los formularios
+      y os llegará una "Access Key" por correo.
+   2. Pégala aquí abajo entre las comillas. Nada más. */
+const ACCESS_KEY = "PEGA_AQUI_TU_ACCESS_KEY";
+const BRAND = "ReSur";   // cambia aquí el nombre si la agencia pasa a llamarse de otra forma
+/* ======================================= */
+
+document.querySelectorAll("[data-brand-text]").forEach(e => e.textContent = BRAND);
+
+const $ = id => document.getElementById(id);
+const form = $("form"), out = $("out"), btn = $("submit");
+
+/* --- horario --- */
+const DAYS = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+$("hours").innerHTML = DAYS.map((d,i) => `
+  <div class="hr" data-i="${i}">
+    <span class="day">${d}</span>
+    <input type="text" aria-label="Horario del ${d.toLowerCase()}" placeholder="${i<5?'9:00–14:00 / 17:00–20:30':i===5?'10:00–14:00':''}">
+    <label class="check"><input type="checkbox" ${i===6?'checked':''}> Cerrado</label>
+  </div>`).join("");
+document.querySelectorAll(".hr").forEach(r => {
+  const cb = r.querySelector("input[type=checkbox]"), tx = r.querySelector("input[type=text]");
+  const sync = () => { r.classList.toggle("closed", cb.checked); tx.disabled = cb.checked; };
+  cb.addEventListener("change", sync); sync();
+});
+$("copyhours").addEventListener("click", () => {
+  const rows = [...document.querySelectorAll(".hr")];
+  const mon = rows[0].querySelector("input[type=text]").value;
+  if (!mon.trim()) { rows[0].querySelector("input[type=text]").focus(); return; }
+  rows.slice(1,5).forEach(r => {
+    const cb = r.querySelector("input[type=checkbox]");
+    cb.checked = false; cb.dispatchEvent(new Event("change"));
+    r.querySelector("input[type=text]").value = mon;
+  });
+});
+
+/* --- colores --- */
+["c1","c2","c3"].forEach(id => $(id).addEventListener("input", e => $(id+"v").textContent = e.target.value.toUpperCase()));
+$("nocolor").addEventListener("change", e => $("fs-colors").classList.toggle("colors-off", e.target.checked));
+
+/* --- web --- */
+$("noweb").addEventListener("change", e => {
+  $("web").disabled = e.target.checked;
+  if (e.target.checked) $("web").value = "";
+  $("f-web").classList.remove("bad");
+});
+
+/* --- validación --- */
+const setBad = (el, bad) => el.closest(".f").classList.toggle("bad", bad);
+function validate(){
+  let first = null;
+  const mark = (el, bad) => { setBad(el, bad); if (bad && !first) first = el; };
+  ["nombre","comercial","direccion","tel1"].forEach(id => mark($(id), $(id).value.trim().length < 2));
+  mark($("email"), !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("email").value.trim()));
+  mark($("web"), !$("noweb").checked && !$("web").value.trim());
+  if (first) { first.focus(); return "Revisa los campos marcados en rojo."; }
+  if (!$("rgpd").checked) { $("rgpd").focus(); return "Tienes que aceptar el uso de los datos para poder enviarlo."; }
+  return "";
+}
+form.addEventListener("input", e => { if (e.target.closest(".f.bad")) setBad(e.target, false); });
+
+/* --- envío --- */
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  out.className = "form-out"; out.textContent = "";
+  const problem = validate();
+  if (problem) { out.className = "form-out err"; out.textContent = problem; return; }
+  if (ACCESS_KEY.startsWith("PEGA_")) { out.className = "form-out err"; out.textContent = "Formulario sin configurar: falta la Access Key de Web3Forms."; return; }
+
+  const horario = [...document.querySelectorAll(".hr")].map((r,i) => {
+    const closed = r.querySelector("input[type=checkbox]").checked;
+    const t = r.querySelector("input[type=text]").value.trim();
+    return `${DAYS[i]}: ${closed ? "Cerrado" : (t || "—")}`;
+  }).join("\n");
+  const colores = $("nocolor").checked
+    ? "Sin preferencia (lo elegimos nosotros)"
+    : `Principal ${$("c1").value.toUpperCase()} · Secundario ${$("c2").value.toUpperCase()} · Detalles ${$("c3").value.toUpperCase()}`;
+
+  const comercial = $("comercial").value.trim();
+  const data = {
+    access_key: ACCESS_KEY,
+    subject: `Nuevo cliente: ${comercial}`,
+    from_name: `Formulario ${BRAND}`,
+    replyto: $("email").value.trim(),
+    botcheck: form.querySelector("[name=botcheck]").checked,
+    "Nombre y apellidos": $("nombre").value.trim(),
+    "Nombre comercial": comercial,
+    "Dirección": $("direccion").value.trim(),
+    "Email": $("email").value.trim(),
+    "Página web": $("noweb").checked ? "No tengo" : $("web").value.trim(),
+    "Teléfono 1": $("tel1").value.trim(),
+    "Teléfono 2": $("tel2").value.trim() || "—",
+    "Colores preferidos": colores,
+    "Notas de estilo": $("colornotas").value.trim() || "—",
+    "Horario": horario,
+    "Notas de horario": $("horanotas").value.trim() || "—"
+  };
+
+  btn.disabled = true; btn.textContent = "Enviando…";
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    if (!json.success) throw new Error(json.message || "Error");
+    document.body.classList.add("sent");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch (err) {
+    out.className = "form-out err";
+    out.textContent = "No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo, o escríbenos por WhatsApp.";
+  } finally {
+    btn.disabled = false; btn.textContent = "Enviar datos";
+  }
+});
+</script>
+</body>
+</html>
